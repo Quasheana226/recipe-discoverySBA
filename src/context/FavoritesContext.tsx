@@ -7,7 +7,49 @@ interface FavoritesConextType {
     favorites: string[] // An array of maeal ids 
     addFavorite: (id: string) => void
     removeFavorite: (id: string) => void
-    isFavorite: (id: string) => void
+    isFavorite: (id: string) => boolean
     toggelFavorite: (id: string) => void
 }
 
+//null default so Typescript yells at me if i forget  the provider 
+const FavoritesContext = createContect<FavoritesConextType | null>(null)
+
+export function FavoritesProvider({ children }: { children: ReactNode }) {
+    const [favorites, setFavorites] = useLocalStorage<string[]>('pizza-app-favorites', [])
+
+    const addFavorite = (id: string) => {
+        console.log('Adding favorite', id)
+        setFavorites((prev) => (prev.includes(id) ? prev : [...prev, id]))
+    }
+
+    const removeFavorite = (id: string) => {
+        console.log('Removing favorite', id)
+        setFavorites((prev) => prev.filter((favId) => favId !== id))
+    }
+
+    const isFavorite = (id: string) => {
+        return favorites.includes(id)
+    }
+
+    const toggleFavorite = (id: string) => {
+        if (isFavorite(id)) {
+            removeFavorite(id)
+        } else {
+            addFavorite(id)
+        }
+    }
+
+    return (
+        <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, isFavorite, toggleFavorite }}>
+            {children}
+        </FavoritesContext.Provider>
+    )
+}
+
+export function useFavorites() {
+    const ctx = useContext(FavoritesContext)
+    if (!ctx) {
+        throw new Error('useFavorites must be used within a FavoritesProvider')
+    }
+    return ctx
+}
