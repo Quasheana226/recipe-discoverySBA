@@ -1,4 +1,5 @@
-import { createContect, useContext, ReactNode } from 'react'
+import { createContext, useContext } from 'react'
+import type { ReactNode } from 'react'
 
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
@@ -8,11 +9,11 @@ interface FavoritesConextType {
     addFavorite: (id: string) => void
     removeFavorite: (id: string) => void
     isFavorite: (id: string) => boolean
-    toggelFavorite: (id: string) => void
+    toggleFavorite: (id: string) => void
 }
 
 //null default so Typescript yells at me if i forget  the provider 
-const FavoritesContext = createContect<FavoritesConextType | null>(null)
+const FavoritesContext = createContext<FavoritesConextType | null>(null)
 
 export function FavoritesProvider({ children }: { children: ReactNode }) {
     const [favorites, setFavorites] = useLocalStorage<string[]>('pizza-app-favorites', [])
@@ -46,6 +47,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useFavorites() {
     const ctx = useContext(FavoritesContext)
     if (!ctx) {
