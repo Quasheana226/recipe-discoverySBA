@@ -18,12 +18,12 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     const [favorites, setFavorites] = useLocalStorage<string[]>('pizza-app-favorites', [])
 
     const addFavorite = (id: string) => {
-        console.log('Adding favorite', id)
+        // console.log('Adding favorite', id)
         setFavorites((prev) => (prev.includes(id) ? prev : [...prev, id]))
     }
 
     const removeFavorite = (id: string) => {
-        console.log('Removing favorite', id)
+        //console.log('Removing favorite', id)
         setFavorites((prev) => prev.filter((favId) => favId !== id))
     }
 
