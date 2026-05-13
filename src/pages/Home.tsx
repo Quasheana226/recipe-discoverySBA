@@ -58,7 +58,7 @@ export default function Home() {
                 while the content scrolls over it. */}
             <section className="hero">
                 <div className="hero-content">
-                    <div className="hero-eyebrow">🍕 Recipe Discovery App</div>
+                    <div className="hero-eyebrow">Recipe Discovery App</div>
 
                     {/* The <span> around "Perfect" is only here so CSS can target that
                         one word and give it the accent color. Without the span, every word
@@ -78,7 +78,7 @@ export default function Home() {
                             doesn't have to type anything. The SearchResults page reads
                             this value out of the URL using useSearchParams. */}
                         <Link to="/search?query=pizza" className="btn btn-primary">
-                            🍕 Find Recipes
+                            Find Recipes
                         </Link>
 
                         <Link to="/favorites" className="btn btn-ghost">
