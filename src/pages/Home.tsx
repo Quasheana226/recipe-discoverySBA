@@ -9,19 +9,19 @@
 //   because the categories endpoint can take a second and I don't want to show a blank page.
 // - ErrorMessage handles the case where the fetch fails. I pass the error string down to it
 //   so it can display something friendly instead of just crashing.
-import { Link } from 'react-router-dom'
-import { useFetch } from '../hooks/useFetch'
-import Spinner from '../components/Spinner'
-import ErrorMessage from '../components/ErrorMessage'
+import { Link } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
+import Spinner from "../components/Spinner";
+import ErrorMessage from "../components/ErrorMessage";
 
 // These are the only three fields from the categories endpoint that this page actually uses.
 // The full API response has more fields like strCategoryDescription and strCategoryThumb
 // but the card only shows a name, a thumbnail image, and needs the id as the React key.
 // Keeping the interface small means TypeScript won't complain about fields I'm ignoring.
 interface Category {
-    idCategory: string
-    strCategory: string
-    strCategoryThumb: string
+    idCategory: string;
+    strCategory: string;
+    strCategoryThumb: string;
 }
 
 // This matches the exact shape TheMealDB sends back from the categories endpoint.
@@ -29,7 +29,7 @@ interface Category {
 // like { categories: [...] }. If I typed this as Category[] directly it would break
 // because useFetch would be trying to read .categories off an array, not an object.
 interface CategoriesResponse {
-    categories: Category[]
+    categories: Category[];
 }
 
 export default function Home() {
@@ -38,8 +38,8 @@ export default function Home() {
     // I'd have to write useState for data, loading, and error plus a whole useEffect
     // block with cleanup just to make one API call. This one line replaces all of that.
     const { data, loading, error } = useFetch<CategoriesResponse>(
-        'https://www.themealdb.com/api/json/v1/1/categories.php'
-    )
+        "https://www.themealdb.com/api/json/v1/1/categories.php",
+    );
 
     // Two things happening here:
     // - data?.categories: the ?. (optional chaining) means if data is still null while
@@ -48,7 +48,7 @@ export default function Home() {
     // - ?? []: the ?? (nullish coalescing) catches that undefined and replaces it with an
     //   empty array so the .map() below always has something to iterate over, even before
     //   the data arrives.
-    const categories = data?.categories ?? []
+    const categories = data?.categories ?? [];
 
     return (
         <>
@@ -121,7 +121,7 @@ export default function Home() {
                                 // if the list ever got reordered.
                                 <Link
                                     key={cat.idCategory}
-                                    to={'/category/' + cat.strCategory}
+                                    to={"/category/" + cat.strCategory}
                                     className="cat-card"
                                 >
                                     <div className="cat-card-img-wrap">
@@ -147,5 +147,5 @@ export default function Home() {
                 </section>
             </div>
         </>
-    )
+    );
 }
