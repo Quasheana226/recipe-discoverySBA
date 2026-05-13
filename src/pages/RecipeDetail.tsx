@@ -201,6 +201,7 @@ export default function RecipeDetail() {
                         <button
                             className={`fav-detail-btn ${isFav ? 'remove' : 'add'}`}
                             onClick={() => toggleFavorite(meal.idMeal)}
+                            style={{ marginTop: '20px' }}
                         >
                             {isFav ? '💔 Remove from Favorites' : '❤️ Add to Favorites'}
                         </button>
