@@ -21,6 +21,7 @@ const Category = lazy(() => import('./pages/Category'))
 const RecipeDetail = lazy(() => import('./pages/RecipeDetail'))
 const Favorites = lazy(() => import('./pages/Favorites'))
 const SearchResults = lazy(() => import('./pages/SearchResults'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 export default function App() {
     return (
@@ -62,6 +63,10 @@ export default function App() {
                             {/* No URL param — search term lives in the query string (?query=chicken).
                                 SearchResults reads it with useLocation + URLSearchParams. */}
                             <Route path="/search" element={<SearchResults />} />
+
+                            {/* * matches any URL that didn't match the routes above.
+                                Must be last — Router checks top to bottom and stops at the first match. */}
+                            <Route path="*" element={<NotFound />} />
 
                         </Routes>
                     </Suspense>

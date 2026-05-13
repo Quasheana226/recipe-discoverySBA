@@ -7,8 +7,8 @@ interface Props {
 export default function ErrorMessage({ message = 'Something went wrong.' }: Props) {
     return (
         <div className="error-box" role="alert">
-            <div className="error-icon">🍕</div>
-            <div className="error-title">Something burned in the kitchen</div>
+            <div className="error-icon">⚠️</div>
+            <div className="error-title">Something went wrong</div>
             <p className="error-msg">{message}</p>
         </div>
     )
